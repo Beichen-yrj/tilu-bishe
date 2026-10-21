@@ -1,0 +1,17 @@
+{
+  "name": "rail-hazardous-goods-platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "铁路危险货物运输“双重预防机制”追责一体化信息平台 · 统一构建/开发入口（前端 frontend，后端 backend）",
+  "scripts": {
+    "start": "python scripts/启动项目.py",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "lint": "npm --prefix frontend run lint -- src",
+    "typecheck": "npm --prefix frontend run typecheck",
+    "test": "npm --prefix frontend run test",
+    "test:backend": "backend\\.venv\\Scripts\\python.exe -m pytest backend/tests -q",
+    "test:deploy": "bash deploy/tests/operations-smoke.sh"
+  }
+}
