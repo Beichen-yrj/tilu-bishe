@@ -1,9 +1,0 @@
-refactor: 前后端分目录，运维/脚本/文档归档，新增仓库根统一构建入口
-
-- 拆分原 web/daima：前端 → frontend/，后端 → backend/，backup.sh/update.sh → deploy/，
-  docker-compose.yml → backend/，运维冒烟脚手架 → deploy/tests/
-- 文档与图片素材 → docs/、docs/图片素材/；一键启动与数据库初始化包 → scripts/
-- 新增仓库根 package.json 作为统一构建入口（dev/build/lint/typecheck/test/test:backend），
-  合并 pyrightconfig.json 与 .vscode/settings.json；根启动项目.bat 转发到 scripts/启动项目.py
-- 行为不变：dist 全部 29 个产物文件名与 sha256 与重构前逐字节一致；
-  前端 node --test 18 passed，后端 pytest 39 passed
