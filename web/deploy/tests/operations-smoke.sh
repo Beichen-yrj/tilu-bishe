@@ -10,21 +10,21 @@ printf 'Fixture directory: %s\n' "$RAIL_TEST_ROOT"
 APP="$RAIL_TEST_ROOT/app"
 WEB="$RAIL_TEST_ROOT/web"
 BACKUPS="$RAIL_TEST_ROOT/backups"
-mkdir -p "$APP/backend/.venv/bin" "$WEB" "$RAIL_TEST_ROOT/bin"
+mkdir -p "$APP/web/backend/.venv/bin" "$WEB" "$RAIL_TEST_ROOT/bin"
 for cmd in sudo mysql mysqldump npm node python systemctl nginx curl rsync chown sleep; do
     ln -s "$REPO/deploy/tests/fixtures/operations-command.sh" "$RAIL_TEST_ROOT/bin/$cmd"
 done
 chmod +x "$REPO/deploy/tests/fixtures/operations-command.sh"
 export PATH="$RAIL_TEST_ROOT/bin:$PATH"
-ln -s "$REPO/deploy/tests/fixtures/operations-command.sh" "$APP/backend/.venv/bin/python"
+ln -s "$REPO/deploy/tests/fixtures/operations-command.sh" "$APP/web/backend/.venv/bin/python"
 cp "$REPO/.gitignore" "$APP/.gitignore"
-touch "$APP/backend/requirements.txt" "$RAIL_TEST_ROOT/key"
-printf 'production-secret\n' > "$APP/backend/.env"
-mkdir -p "$APP/frontend"
-printf 'old\n' > "$APP/frontend/version.txt"
+touch "$APP/web/backend/requirements.txt" "$RAIL_TEST_ROOT/key"
+printf 'production-secret\n' > "$APP/web/backend/.env"
+mkdir -p "$APP/web/frontend"
+printf 'old\n' > "$APP/web/frontend/version.txt"
 printf 'old\n' > "$WEB/index.html"
 printf 'old stale asset\n' > "$WEB/stale.js"
-mkdir -p "$APP/deploy"
+mkdir -p "$APP/web/deploy"
 for script in backup.sh update.sh; do
     sed -e "s|/opt/rail-safety/daima|$APP|g" \
         -e "s|/var/www/rail-safety|$WEB|g" \
@@ -32,7 +32,7 @@ for script in backup.sh update.sh; do
         -e "s|/opt/rail-safety/.ssh/id_ed25519|$RAIL_TEST_ROOT/key|g" \
         -e "s|/opt/rail-safety/build-|$RAIL_TEST_ROOT/build-|g" \
         -e "s|/run/lock/rail-safety-|$RAIL_TEST_ROOT/lock-|g" \
-        "$REPO/deploy/$script" > "$APP/deploy/$script"
+        "$REPO/deploy/$script" > "$APP/web/deploy/$script"
 done
 git init -q -b main "$APP"
 git -C "$APP" config user.email fixture@example.invalid
@@ -44,8 +44,8 @@ git -C "$APP" remote add origin "$RAIL_TEST_ROOT/remote.git"
 git clone -q "$RAIL_TEST_ROOT/remote.git" "$RAIL_TEST_ROOT/author"
 git -C "$RAIL_TEST_ROOT/author" config user.email fixture@example.invalid
 git -C "$RAIL_TEST_ROOT/author" config user.name Fixture
-printf 'new\n' > "$RAIL_TEST_ROOT/author/frontend/version.txt"
-git -C "$RAIL_TEST_ROOT/author" add frontend/version.txt
+printf 'new\n' > "$RAIL_TEST_ROOT/author/web/frontend/version.txt"
+git -C "$RAIL_TEST_ROOT/author" add web/frontend/version.txt
 git -C "$RAIL_TEST_ROOT/author" commit -qm update
 git -C "$RAIL_TEST_ROOT/author" push -q origin main
 
@@ -66,28 +66,28 @@ printf 'PASS: failed dump cannot be reported as a complete backup\n'
 touch "$RAIL_TEST_ROOT/fail-build"
 if bash "$APP/update.sh" > "$RAIL_TEST_ROOT/build-failure.log" 2>&1; then exit 1; fi
 [[ $(cat "$WEB/index.html") == old ]]
-[[ $(cat "$APP/frontend/version.txt") == old ]]
+[[ $(cat "$APP/web/frontend/version.txt") == old ]]
 ! grep -q 'systemctl stop' "$RAIL_TEST_ROOT/commands.log"
 rm "$RAIL_TEST_ROOT/fail-build"
 printf 'PASS: failed build preserves running checkout and published frontend\n'
 
 bash "$APP/update.sh" > "$RAIL_TEST_ROOT/update.log" 2>&1
-[[ $(cat "$WEB/index.html") == new && $(cat "$APP/frontend/version.txt") == new ]]
+[[ $(cat "$WEB/index.html") == new && $(cat "$APP/web/frontend/version.txt") == new ]]
 [[ ! -e "$WEB/stale.js" ]]
-[[ $(cat "$APP/backend/.env") == production-secret ]]
+[[ $(cat "$APP/web/backend/.env") == production-secret ]]
 [[ $(git -C "$APP" rev-parse HEAD) == $(git -C "$RAIL_TEST_ROOT/author" rev-parse HEAD) ]]
 grep -q 'systemctl start rail-safety-api' "$RAIL_TEST_ROOT/commands.log"
 printf 'PASS: GitHub update, dependency workflow, health check and frontend publication\n'
 
-printf 'local edit\n' >> "$APP/frontend/version.txt"
+printf 'local edit\n' >> "$APP/web/frontend/version.txt"
 if bash "$APP/update.sh" > "$RAIL_TEST_ROOT/dirty-failure.log" 2>&1; then exit 1; fi
 [[ $(cat "$WEB/index.html") == new ]]
 printf 'PASS: dirty checkout is rejected without replacing published files\n'
 
 # Only restore the test-owned synthetic file after the dirty-check scenario.
-git -C "$APP" restore frontend/version.txt
-printf 'next\n' > "$RAIL_TEST_ROOT/author/frontend/version.txt"
-git -C "$RAIL_TEST_ROOT/author" add frontend/version.txt
+git -C "$APP" restore web/frontend/version.txt
+printf 'next\n' > "$RAIL_TEST_ROOT/author/web/frontend/version.txt"
+git -C "$RAIL_TEST_ROOT/author" add web/frontend/version.txt
 git -C "$RAIL_TEST_ROOT/author" commit -qm next
 git -C "$RAIL_TEST_ROOT/author" push -q origin main
 touch "$RAIL_TEST_ROOT/fail-pip"

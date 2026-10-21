@@ -34,8 +34,8 @@ trap on_error ERR
 for cmd in git sudo npm node python3 rsync systemctl nginx curl flock realpath sha256sum mktemp tar grep; do
     command -v "$cmd" >/dev/null || fail "Missing command: $cmd"
 done
-[[ -d "$APP_DIR/.git" && -f "$APP_DIR/deploy/backup.sh" ]] || fail 'Project or deploy/backup.sh not found.'
-[[ -f "$APP_DIR/backend/.env" && -x "$APP_DIR/backend/.venv/bin/python" ]] || fail 'Production .env or Python venv not found.'
+[[ -d "$APP_DIR/.git" && -f "$APP_DIR/web/deploy/backup.sh" ]] || fail 'Project or deploy/backup.sh not found.'
+[[ -f "$APP_DIR/web/backend/.env" && -x "$APP_DIR/web/backend/.venv/bin/python" ]] || fail 'Production .env or Python venv not found.'
 [[ $(realpath "$APP_DIR") == "$APP_DIR" && $(realpath "$WEB_DIR") == "$WEB_DIR" ]] || fail 'Deployment paths must not be symlinks.'
 [[ -f "$WEB_DIR/index.html" ]] || fail 'Existing frontend index.html not found.'
 [[ -r "$SSH_KEY" ]] || fail 'GitHub SSH key not found.'
@@ -45,15 +45,15 @@ exec 8>/run/lock/rail-safety-update.lock
 flock -n 8 || fail 'Another update is running.'
 [[ $(git_app branch --show-current) == "$BRANCH" ]] || fail 'The deployment checkout must be on main.'
 [[ -z $(git_app status --porcelain) ]] || fail 'Checkout has local changes. Commit or resolve them before updating.'
-if git_app ls-files --error-unmatch backend/.env >/dev/null 2>&1; then
+if git_app ls-files --error-unmatch web/backend/.env >/dev/null 2>&1; then
     fail 'Production .env must not be tracked by Git.'
 fi
 nginx -t
 OLD_COMMIT=$(git_app rev-parse HEAD)
-ENV_HASH=$(sha256sum "$APP_DIR/backend/.env")
+ENV_HASH=$(sha256sum "$APP_DIR/web/backend/.env")
 
 printf '[1/6] Back up database, credentials, source and frontend\n'
-bash "$APP_DIR/deploy/backup.sh"
+bash "$APP_DIR/web/deploy/backup.sh"
 # Keep standalone backups out of the code/dependency publication window.
 exec 9>/run/lock/rail-safety-backup.lock
 flock -n 9 || fail 'Another backup started; retry the update after it finishes.'
@@ -62,7 +62,7 @@ git_app fetch origin "$BRANCH"
 NEW_COMMIT=$(git_app rev-parse FETCH_HEAD)
 git_app merge-base --is-ancestor "$OLD_COMMIT" "$NEW_COMMIT" \
     || fail 'GitHub main diverged from this checkout; no forced reset will be performed.'
-if git_app ls-tree -r --name-only "$NEW_COMMIT" -- backend/.env | grep -q .; then
+if git_app ls-tree -r --name-only "$NEW_COMMIT" -- web/backend/.env | grep -q .; then
     fail 'GitHub commit tracks backend/.env; refusing to overwrite production configuration.'
 fi
 
@@ -72,20 +72,20 @@ STAGE_DIR=$(mktemp -d /opt/rail-safety/build-XXXXXXXX)
 chown railapp:railapp "$STAGE_DIR"
 git_app archive "$NEW_COMMIT" | as_app tar -x -C "$STAGE_DIR"
 (
-    cd "$STAGE_DIR/frontend"
+    cd "$STAGE_DIR/web/frontend"
     as_app npm ci --include=dev
     as_app env VITE_API_BASE_URL=/api npm run build
 )
-[[ -s "$STAGE_DIR/frontend/dist/index.html" ]] || fail 'Build did not produce index.html.'
-[[ -f "$STAGE_DIR/backend/requirements.txt" ]] || fail 'Fetched code has no backend requirements.'
+[[ -s "$STAGE_DIR/web/frontend/dist/index.html" ]] || fail 'Build did not produce index.html.'
+[[ -f "$STAGE_DIR/web/backend/requirements.txt" ]] || fail 'Fetched code has no backend requirements.'
 
 printf '[4/6] Stop API, fast-forward code and install backend dependencies\n'
 ACTIVATING=1
 systemctl stop "$SERVICE"
 git_app merge --ff-only "$NEW_COMMIT"
-[[ $(sha256sum "$APP_DIR/backend/.env") == "$ENV_HASH" ]] || fail 'Production .env changed during update.'
-as_app "$APP_DIR/backend/.venv/bin/python" -m pip install -r "$APP_DIR/backend/requirements.txt"
-as_app "$APP_DIR/backend/.venv/bin/python" -m pip check
+[[ $(sha256sum "$APP_DIR/web/backend/.env") == "$ENV_HASH" ]] || fail 'Production .env changed during update.'
+as_app "$APP_DIR/web/backend/.venv/bin/python" -m pip install -r "$APP_DIR/web/backend/requirements.txt"
+as_app "$APP_DIR/web/backend/.venv/bin/python" -m pip check
 
 printf '[5/6] Start API and check database connectivity\n'
 systemctl start "$SERVICE"
@@ -102,7 +102,7 @@ done
 [[ $healthy == 1 ]] || fail 'API health check failed. Inspect: journalctl -u rail-safety-api -n 60 --no-pager'
 
 printf '[6/6] Publish the built frontend\n'
-rsync -a --delete --chown=www-data:www-data --chmod=D755,F644 "$STAGE_DIR/frontend/dist/" "$WEB_DIR/"
+rsync -a --delete --chown=www-data:www-data --chmod=D755,F644 "$STAGE_DIR/web/frontend/dist/" "$WEB_DIR/"
 systemctl is-active --quiet "$SERVICE"
 trap - ERR
 printf 'Update complete: %s -> %s\nBuild files kept at: %s\n' "$OLD_COMMIT" "$NEW_COMMIT" "$STAGE_DIR"

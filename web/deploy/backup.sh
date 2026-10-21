@@ -14,7 +14,7 @@ fail() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 for cmd in mysqldump mysql tar gzip sha256sum flock mktemp realpath git sudo; do
     command -v "$cmd" >/dev/null || fail "Missing command: $cmd"
 done
-[[ -d "$APP_DIR/.git" && -f "$APP_DIR/backend/.env" ]] || fail 'Project or production .env not found.'
+[[ -d "$APP_DIR/.git" && -f "$APP_DIR/web/backend/.env" ]] || fail 'Project or production .env not found.'
 [[ $(realpath "$APP_DIR") == "$APP_DIR" ]] || fail 'Project path must not be a symlink.'
 mkdir -p "$BACKUP_ROOT"
 [[ $(realpath "$BACKUP_ROOT") == "$BACKUP_ROOT" ]] || fail 'Backup path must not be a symlink.'
@@ -38,11 +38,11 @@ mysqldump --user=root --protocol=socket --single-transaction --quick \
 gzip -t "$BACKUP_DIR/database.sql.gz.partial"
 mv "$BACKUP_DIR/database.sql.gz.partial" "$BACKUP_DIR/database.sql.gz"
 
-tar --exclude='./.git' --exclude='./frontend/node_modules' --exclude='./frontend/dist' --exclude='./frontend/logs' \
-    --exclude='./backend/.venv' --exclude='./backend/.env' \
+tar --exclude='./.git' --exclude='./web/frontend/node_modules' --exclude='./web/frontend/dist' --exclude='./web/frontend/logs' \
+    --exclude='./web/backend/.venv' --exclude='./web/backend/.env' \
     --exclude='__pycache__' --exclude='.pytest_cache' --exclude='./logs' \
     -czf "$BACKUP_DIR/source.tar.gz" -C "$APP_DIR" .
-cp "$APP_DIR/backend/.env" "$BACKUP_DIR/backend.env"
+cp "$APP_DIR/web/backend/.env" "$BACKUP_DIR/backend.env"
 if [[ -d "$WEB_DIR" ]]; then
     tar -czf "$BACKUP_DIR/web.tar.gz" -C "$WEB_DIR" .
 fi
