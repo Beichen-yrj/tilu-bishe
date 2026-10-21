@@ -1,11 +1,15 @@
 # 铁路危险货物运输“双重预防机制”追责一体化信息平台
 
-仓库按“站点”分包，两个子项目各自独立，互不交叉引用：
+仓库按“站点”分包，代码与文档分开存放：
 
-| 目录 | 内容 | 入口 |
-| --- | --- | --- |
-| `web/` | 网站部分：React + TypeScript + Vite 前端、FastAPI 后端、运维脚本、文档 | `web/启动项目.bat`（或 `cd web && npm run dev`） |
-| `wxapp/` | 微信小程序部分：小程序前端 `frontend/`，后端 `backend/`（待接入） | 微信开发者工具打开 `wxapp/frontend/` |
+```text
+.
+├── web/          网站（前端 + 后端 + 脚本）
+├── wxapp/        微信小程序（前端 + 后端占位）
+├── docs/         文档：web-docs/ 与 wxapp-docs/
+├── README.md
+└── .gitignore / .gitattributes / .vscode / AGENTS.md
+```
 
 ## web/（网站）
 
@@ -13,9 +17,7 @@
 web/
 ├── frontend/           React 19 + TS + Vite（src、public、tests、vite.config.ts、tsconfig*.json）
 ├── backend/            FastAPI + SQLAlchemy（app、tests、requirements.txt、.env、docker-compose.yml）
-├── deploy/             服务器运维：backup.sh、update.sh，测试脚手架在 deploy/tests/
 ├── scripts/            本地一键启动（启动项目.py / .bat）与数据库初始化包/
-├── docs/               设计、指南、参考资料、图片素材
 ├── package.json        统一构建入口：dev / build / lint / typecheck / test / test:backend
 ├── pyrightconfig.json  后端类型检查配置（指向 backend/）
 └── 启动项目.bat        双击启动前后端
@@ -37,12 +39,19 @@ npm run typecheck      # tsc -b
 ```text
 wxapp/
 ├── frontend/           小程序源码（微信开发者工具工程）
-├── backend/            小程序后端（尚未实现，目录内 README 说明接入方式）
+├── backend/            小程序后端（占位，暂复用 web/backend 的 /api/* 接口）
 └── README.md
 ```
 
-小程序后端目前为空，业务接口暂由 `web/backend` 提供；新增小程序专属接口时放在 `wxapp/backend/`，不要写进 `web/backend`。
+小程序专属接口写在 `wxapp/backend/`，不要加进 `web/backend/`。
 
-## 更多文档
+## docs/（文档）
 
-全部文档索引见 `web/docs/README.md`（设计、部署指南、数据库初始化、项目开发说明）。
+```text
+docs/
+├── web-docs/           网站设计、指南、参考资料、图片素材
+└── wxapp-docs/         小程序文档
+```
+
+- web 文档索引：`docs/web-docs/README.md`
+- 小程序文档索引：`docs/wxapp-docs/README.md`
