@@ -15,8 +15,10 @@
 
 ```text
 web/
-├── frontend/           React 19 + TS + Vite（src、public、tests、vite.config.ts、tsconfig*.json）
-├── backend/            FastAPI + SQLAlchemy（app、tests、requirements.txt、.env、docker-compose.yml）
+├── frontend/           React 19 + TS + Vite
+│   └── src/            main.tsx、App.tsx（装配）｜shared/（api、styles）｜domain/（领域逻辑）｜features/（按页面域）
+├── backend/            FastAPI + SQLAlchemy
+│   └── app/            main.py（装配）｜core/｜models/｜schemas/｜api/（deps、v1 路由）｜services/（业务）
 ├── scripts/            本地一键启动（启动项目.py / .bat）与数据库初始化包/
 ├── package.json        统一构建入口：dev / build / lint / typecheck / test / test:backend
 ├── pyrightconfig.json  后端类型检查配置（指向 backend/）
@@ -30,6 +32,7 @@ npm run build          # 前端构建，产物 web/frontend/dist
 npm test               # 前端领域逻辑测试
 npm run test:backend   # 后端 pytest
 npm run typecheck      # tsc -b
+npm run verify         # 类型检查 + 前端测试 + 后端测试（一次跑完）
 ```
 
 后端单独启动：`cd web/backend && .venv/Scripts/python.exe -m uvicorn app.main:app --reload --port 8000`。

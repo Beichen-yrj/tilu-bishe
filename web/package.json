@@ -11,6 +11,7 @@
     "lint": "npm --prefix frontend run lint -- src",
     "typecheck": "npm --prefix frontend run typecheck",
     "test": "npm --prefix frontend run test",
-    "test:backend": "backend\\.venv\\Scripts\\python.exe -m pytest backend/tests -q"
+    "test:backend": "backend\\.venv\\Scripts\\python.exe -m pytest backend/tests -q",
+    "verify": "npm run typecheck && npm test && npm run test:backend"
   }
 }
