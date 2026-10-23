@@ -14,9 +14,9 @@ def main() -> None:
         os.environ["CORS_ORIGINS"] = "http://127.0.0.1:5175"
         os.environ["ADMIN_USERNAME"] = ""
         sys.path.insert(0, str(Path(__file__).parents[1]))
-        from app.database import Base, SessionLocal, engine
+        from app.core.database import Base, SessionLocal, engine
         from app.models import HazardAssessment, User
-        from app.security import hash_password
+        from app.core.security import hash_password
         from app.main import app
         from test_hazard_assessments import payload
         import uvicorn

@@ -5,8 +5,9 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from app import ai
-from app.auth import get_current_user
+from app.api.v1 import ai
+from app.services import ai_service
+from app.api.deps import get_current_user
 
 
 def body():
@@ -21,7 +22,7 @@ def test_ai_uses_authenticated_role_without_real_external_request(monkeypatch, r
     app = FastAPI()
     app.include_router(ai.router)
     app.dependency_overrides[get_current_user] = lambda: SimpleNamespace(role=role)
-    monkeypatch.setattr(ai, "get_settings", lambda: SimpleNamespace(
+    monkeypatch.setattr(ai_service, "get_settings", lambda: SimpleNamespace(
         deepseek_api_key="test-placeholder", deepseek_model="deepseek-chat",
         deepseek_base_url="https://example.invalid",
     ))
@@ -43,13 +44,13 @@ def test_ai_uses_authenticated_role_without_real_external_request(monkeypatch, r
                 "choices": [{"message": {"content": "测试辅助建议"}}],
             })
 
-    monkeypatch.setattr(ai.httpx, "AsyncClient", MockClient)
+    monkeypatch.setattr(ai_service.httpx, "AsyncClient", MockClient)
     with TestClient(app) as client:
         response = client.post("/api/ai/chat", json=body())
         assert response.status_code == 200
         assert response.json()["provider"] == "deepseek"
         canonical = "ordinary" if role == "operator" else role
-        assert ai.ROLE_GUIDANCE[canonical] in sent[0]["messages"][0]["content"]
+        assert ai_service.ROLE_GUIDANCE[canonical] in sent[0]["messages"][0]["content"]
         assert "R≥16" in sent[0]["messages"][0]["content"]
         assert "修改账号权限" in sent[0]["messages"][0]["content"]
         spoofed = body()
@@ -74,7 +75,7 @@ def test_ai_without_key_returns_clear_error(monkeypatch):
     app = FastAPI()
     app.include_router(ai.router)
     app.dependency_overrides[get_current_user] = lambda: SimpleNamespace(role="ordinary")
-    monkeypatch.setattr(ai, "get_settings", lambda: SimpleNamespace(deepseek_api_key=""))
+    monkeypatch.setattr(ai_service, "get_settings", lambda: SimpleNamespace(deepseek_api_key=""))
     with TestClient(app) as client:
         response = client.post("/api/ai/chat", json=body())
         assert response.status_code == 503

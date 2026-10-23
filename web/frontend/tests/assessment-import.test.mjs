@@ -9,10 +9,10 @@ registerHooks({ resolve(specifier, context, next) {
     throw error
   }
 } })
-const { parseAssessmentRows } = await import('../src/assessmentImport.ts')
-const { buildImportedRecord } = await import('../src/assessmentRecord.ts')
-const { assessmentSignature, findDuplicateImportRows } = await import('../src/assessmentDuplicates.ts')
-const { hazardCatalog } = await import('../src/hazardCatalog.ts')
+const { parseAssessmentRows } = await import('../src/domain/assessmentImport.ts')
+const { buildImportedRecord } = await import('../src/domain/assessmentRecord.ts')
+const { assessmentSignature, findDuplicateImportRows } = await import('../src/domain/assessmentDuplicates.ts')
+const { hazardCatalog } = await import('../src/domain/hazardCatalog.ts')
 const first = hazardCatalog[0], second = hazardCatalog[1]
 const headers = ['任务名称','办理局','办理站','作业区域','危险货物','作业环节','指标维度','危险源编号','评估方式','检测数据名称','检测值/结论','确定性结论','静态风险等级','发生可能性L','后果严重度C','照片文件名','隐患描述','整改建议']
 const row = (hazard, index) => [`任务${index}`,'北京局','丰台西站','检测区','航空煤油',hazard.stage,hazard.dimension,hazard.code,'动态',`检测${index}`,index,null,null,4,4,`照片${index}.jpg`,`隐患${index}`,`建议${index}`]

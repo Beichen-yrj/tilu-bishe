@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import select
 
-from app.database import Base, SessionLocal, engine
+from app.core.database import Base, SessionLocal, engine
 from app.main import app
 from app.models import HazardAssessment
 from test_hazard_assessments import login_as, payload

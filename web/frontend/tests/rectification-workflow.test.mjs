@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { rectificationStatus, rectificationAccess, isOpenIssue, isActiveHazard } from '../src/rectificationWorkflow.ts'
+import { rectificationStatus, rectificationAccess, isOpenIssue, isActiveHazard } from '../src/domain/rectificationWorkflow.ts'
 
 const discovery = { operation: 'assessment', role: 'safety_manager', actor_id: 10 }
 const assigned = { operation: 'advance', role: 'project_manager', actor_id: 20, actor: '经理甲', to_status: '整改中' }

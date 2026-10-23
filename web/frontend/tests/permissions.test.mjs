@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { canAccessPage } from '../src/permissions.ts'
+import { canAccessPage } from '../src/domain/permissions.ts'
 
 test('ordinary and legacy operator accounts can view dashboard, AI assistant, and profile only', () => {
   for (const role of ['ordinary', 'operator']) {

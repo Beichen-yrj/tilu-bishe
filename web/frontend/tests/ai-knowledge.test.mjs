@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { answerQuickQuestion, getQuickQuestions } from '../src/aiKnowledge.ts'
-import { canAccessPage } from '../src/permissions.ts'
+import { answerQuickQuestion, getQuickQuestions } from '../src/domain/aiKnowledge.ts'
+import { canAccessPage } from '../src/domain/permissions.ts'
 
 const context = {
   records: [

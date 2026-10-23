@@ -7,16 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import inspect, text
 from sqlalchemy.orm import Session
 
-from . import models  # noqa: F401
-from .auth import ensure_default_admin
-from .auth import router as auth_router
-from .ai import router as ai_router
-from .assessments import router as assessments_router
-from .feedback import router as feedback_router
-from .hazard_assessments import router as hazard_assessments_router
-from .config import get_settings
-from .database import Base, engine, get_db
+from . import models  # noqa: F401  （导入实体以注册元数据）
+from .api.v1 import ai, assessments, auth, feedback, hazard_assessments
+from .core.config import get_settings
+from .core.database import Base, engine, get_db
 from .schemas import HealthResponse
+from .services.auth_service import ensure_default_admin
 
 
 def ensure_schema_compatibility() -> None:
@@ -68,11 +64,11 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
-app.include_router(auth_router)
-app.include_router(feedback_router)
-app.include_router(assessments_router)
-app.include_router(hazard_assessments_router)
-app.include_router(ai_router)
+app.include_router(auth.router)
+app.include_router(feedback.router)
+app.include_router(assessments.router)
+app.include_router(hazard_assessments.router)
+app.include_router(ai.router)
 
 
 @app.get("/api/health", response_model=HealthResponse, tags=["system"])
