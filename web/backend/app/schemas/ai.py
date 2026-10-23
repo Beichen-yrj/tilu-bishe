@@ -1,3 +1,5 @@
+"""AI 助手 DTO：提问、业务摘要上下文与回答结构。"""
+
 from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator

@@ -1,3 +1,4 @@
+/** AI 本地知识问答测试。 */
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { answerQuickQuestion, getQuickQuestions } from '../src/domain/aiKnowledge.ts'

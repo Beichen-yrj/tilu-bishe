@@ -1,3 +1,4 @@
+/** 页面权限判定测试。 */
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { canAccessPage } from '../src/domain/permissions.ts'

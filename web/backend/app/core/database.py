@@ -1,3 +1,5 @@
+"""数据库基础设施：SQLAlchemy Engine、SessionLocal、声明式 Base 与 get_db 依赖。"""
+
 from __future__ import annotations
 
 from collections.abc import Generator

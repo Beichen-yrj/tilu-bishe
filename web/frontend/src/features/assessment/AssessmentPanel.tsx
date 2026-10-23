@@ -1,3 +1,4 @@
+/** 通用评估面板：录入检测数据、静态检查与动态评分。 */
 import { useMemo, useState } from 'react'
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, ClipboardCheck, Database, Download, FileUp, Gauge, Plus, Shield, ShieldAlert, X } from 'lucide-react'
 import { bureaus } from '../../domain/railwayScope'

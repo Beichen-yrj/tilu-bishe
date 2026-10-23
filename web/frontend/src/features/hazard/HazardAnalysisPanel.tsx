@@ -1,3 +1,4 @@
+/** 隐患分析面板：风险分布、维度统计与趋势。 */
 import { useMemo, useState } from 'react'
 import { AlertOctagon, AlertTriangle, ArrowLeft, CheckCircle2, Clock3, Filter, ShieldAlert } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'

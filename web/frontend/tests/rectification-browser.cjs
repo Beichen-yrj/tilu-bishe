@@ -1,3 +1,4 @@
+/** 浏览器联调脚本：用 Playwright 走通整改流程并截图。 */
 const assert = require('node:assert/strict')
 const path = require('node:path')
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright')

@@ -1,3 +1,4 @@
+/** 整改抽屉与流程组件样式。 */
 .rectification-drawer{width:min(600px,100%)}
 .rectification-view-tabs{display:flex;gap:20px;padding:0 16px;border-bottom:1px solid #e5ebef;overflow-x:auto}
 .rectification-view-tabs button{min-height:44px;padding:0 2px;border:0;border-bottom:2px solid transparent;background:transparent;color:#748797;font-size:11px;white-space:nowrap}

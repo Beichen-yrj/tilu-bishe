@@ -1,3 +1,5 @@
+"""隐患排查评估接口测试：保存、权限与字段校验。"""
+
 from __future__ import annotations
 
 from fastapi.testclient import TestClient

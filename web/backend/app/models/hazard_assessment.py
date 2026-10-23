@@ -1,3 +1,5 @@
+"""隐患排查评估实体：HazardAssessment，含检测数据、隐患定级、照片、复核结论、整改日志与流程版本。"""
+
 from __future__ import annotations
 
 from datetime import datetime

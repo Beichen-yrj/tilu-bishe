@@ -1,3 +1,5 @@
+"""安全原语：bcrypt 密码摘要/校验，JWT 签发与解析。"""
+
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone

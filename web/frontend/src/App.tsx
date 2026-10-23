@@ -1,3 +1,4 @@
+/** 应用装配层：门户/管理平台路由、导航状态、登录会话与页面组合。 */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Activity, AlertTriangle, ArrowDownRight, ArrowRight, Bell, Boxes, CalendarDays,

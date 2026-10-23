@@ -1,3 +1,5 @@
+"""FastAPI 应用装配：CORS、路由注册、启动生命周期（建表、兼容迁移、默认管理员）与健康检查。"""
+
 from __future__ import annotations
 
 from contextlib import asynccontextmanager

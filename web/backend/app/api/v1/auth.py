@@ -1,3 +1,5 @@
+"""认证路由：注册、登录、当前用户、修改资料、退出、修改密码。"""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, status

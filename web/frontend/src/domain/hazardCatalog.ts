@@ -1,3 +1,4 @@
+/** 隐患排查知识库：维度、阶段、危险货物类别与检查项目录。 */
 export type HazardCatalogItem = {
   code: string
   stage: '进场' | '装卸' | '搬运'

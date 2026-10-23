@@ -1,3 +1,4 @@
+/** 整改任务详情抽屉：推进阶段、上传证据、复核确认与处理记录时间线。 */
 import { useRef, useState } from 'react'
 import { ArrowRight, Camera, Check, MapPin, Pencil, RotateCcw, Save, X } from 'lucide-react'
 import type { HazardAssessmentRecord, RectificationUpdate } from '../../shared/api/hazardAssessments'

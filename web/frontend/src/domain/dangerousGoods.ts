@@ -1,3 +1,4 @@
+/** 危险货物类别、UN 编号与判定规则。 */
 export type DangerousGood = {
   name: string
   formalName: string

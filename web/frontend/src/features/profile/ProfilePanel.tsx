@@ -1,3 +1,4 @@
+/** 个人中心：资料、头像、改密与意见反馈。 */
 import { useEffect, useState } from 'react'
 import { AlertTriangle, Camera, Check, KeyRound, LogOut, MessageSquare, RefreshCw, Send, Shield, ShieldCheck, Trash2, Upload, UserCircle } from 'lucide-react'
 import { ApiError, changePassword, updateProfileAvatar } from '../../shared/api/auth'

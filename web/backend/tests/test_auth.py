@@ -1,3 +1,5 @@
+"""认证接口测试：注册、登录、越权与改密。"""
+
 from __future__ import annotations
 
 from fastapi.testclient import TestClient

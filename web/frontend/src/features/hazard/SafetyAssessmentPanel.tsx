@@ -1,3 +1,4 @@
+/** 隐患排查评估面板：危险源选择、检测数据、隐患定级、照片与 Excel 导入。 */
 import { useMemo, useState } from 'react'
 import { AlertTriangle, ArrowLeft, Camera, Check, ChevronLeft, ChevronRight, CircleHelp, Clock3, Download, FileImage, Filter, Plus, Search, ShieldCheck, Trash2, Upload, X } from 'lucide-react'
 import { hazardCatalog, hazardDimensions, hazardStages } from '../../domain/hazardCatalog'

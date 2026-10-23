@@ -1,3 +1,4 @@
+/** 铁路局/车站数据范围与时间维度口径（组织、站点、周期统计）。 */
 export type Bureau = { name: string; short: string; stations: string[] }
 
 // 中国国家铁路集团 18 个铁路局集团公司及其危险货物运输主要办理场站（演示清单，正式版以业务确认为准）

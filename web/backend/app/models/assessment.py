@@ -1,3 +1,5 @@
+"""通用评估实体：Assessment，保存检测数据、风险等级与结论。"""
+
 from __future__ import annotations
 
 from datetime import datetime

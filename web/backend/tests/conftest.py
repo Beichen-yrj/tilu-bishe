@@ -1,3 +1,5 @@
+"""pytest 夹具：切换到临时 SQLite、注入测试密钥并修正导入路径。"""
+
 from __future__ import annotations
 
 import os

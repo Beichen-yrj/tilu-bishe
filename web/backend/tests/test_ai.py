@@ -1,3 +1,5 @@
+"""AI 接口测试：角色指引、未配置密钥与服务异常。"""
+
 from types import SimpleNamespace
 
 import httpx

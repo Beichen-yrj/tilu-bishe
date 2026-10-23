@@ -1,3 +1,5 @@
+"""认证业务：默认管理员初始化、会话校验、注册、登录、改密、资料更新与退出。"""
+
 from __future__ import annotations
 
 from datetime import datetime, timezone

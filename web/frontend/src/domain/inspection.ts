@@ -1,3 +1,4 @@
+/** 检查结果计算：静态项与动态指标评分、风险矩阵定级与导入模板。 */
 export type RiskLevel = '重大' | '较大' | '一般' | '低'
 
 export type StaticItem = { code: string; category: string; name: string; requirement: string; basis: string; measure: string }

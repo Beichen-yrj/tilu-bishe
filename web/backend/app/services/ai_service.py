@@ -1,3 +1,5 @@
+"""AI 助手业务：系统提示词、角色指引、调用模型服务并处理超时/异常。"""
+
 from __future__ import annotations
 
 import json

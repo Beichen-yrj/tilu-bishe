@@ -1,3 +1,4 @@
+/** 整改流程阶段规则测试。 */
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { rectificationStatus, rectificationAccess, isOpenIssue, isActiveHazard } from '../src/domain/rectificationWorkflow.ts'

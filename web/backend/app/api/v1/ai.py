@@ -1,3 +1,5 @@
+"""AI 助手路由：把脱敏业务摘要与提问转发给模型服务，仅返回建议。"""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends

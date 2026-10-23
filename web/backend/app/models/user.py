@@ -1,3 +1,5 @@
+"""用户与登录会话实体：User、AuthSession（JWT 会话落库，支持吊销）。"""
+
 from __future__ import annotations
 
 from datetime import datetime

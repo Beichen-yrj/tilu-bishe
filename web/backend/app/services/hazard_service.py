@@ -1,3 +1,5 @@
+"""隐患评估业务：整改状态机（6 阶段/5 操作）、复核数值阈值校验、乐观锁与审计日志写入。"""
+
 from __future__ import annotations
 
 import re

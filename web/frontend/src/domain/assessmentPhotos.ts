@@ -1,3 +1,4 @@
+/** 现场照片压缩与格式处理。 */
 export function compressImage(file: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()

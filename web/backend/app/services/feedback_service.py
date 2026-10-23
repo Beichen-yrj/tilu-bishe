@@ -1,3 +1,5 @@
+"""意见反馈业务：创建、可见范围查询与管理员回复。"""
+
 from __future__ import annotations
 
 from datetime import datetime, timezone

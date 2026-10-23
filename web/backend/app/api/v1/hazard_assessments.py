@@ -1,3 +1,5 @@
+"""隐患排查评估路由：列表、保存、删除，以及整改阶段流转（提交进展、推进、撤回、退回、修改）。"""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends

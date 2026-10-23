@@ -1,3 +1,5 @@
+"""通用评估路由：按账号列出评估记录、保存单条评估。"""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends

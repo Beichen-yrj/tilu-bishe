@@ -1,3 +1,4 @@
+/** 基础资料面板：危险源与检查项目录维护。 */
 import { useMemo, useState } from 'react'
 import { ArrowRight, BookOpen, Plus, Scale, Settings2, ShieldCheck, X } from 'lucide-react'
 import { dynamicItems, staticItems } from '../../domain/inspection'

@@ -1,3 +1,4 @@
+/** Excel 导入解析与去重测试。 */
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { registerHooks } from 'node:module'

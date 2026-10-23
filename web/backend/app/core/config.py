@@ -1,3 +1,5 @@
+"""环境配置：读取 .env，集中管理数据库地址、JWT 密钥、管理员账号、模型服务与 CORS 白名单。"""
+
 from __future__ import annotations
 
 import os

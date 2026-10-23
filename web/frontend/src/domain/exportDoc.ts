@@ -1,3 +1,4 @@
+/** 文档导出：生成 HTML/文本报告并触发下载。 */
 export type DocSection = {
   heading: string
   paragraphs?: string[]

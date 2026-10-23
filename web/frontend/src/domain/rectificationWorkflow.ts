@@ -1,3 +1,4 @@
+/** 整改流程领域规则：阶段顺序、可操作性判定、闭环状态计算。 */
 import type { HazardAssessmentRecord, RectificationStatus } from '../shared/api/hazardAssessments.ts'
 
 export const rectificationStages: RectificationStatus[] = ['待整改', '整改中', '待复核', '复核中', '待项目经理确认', '已闭环']

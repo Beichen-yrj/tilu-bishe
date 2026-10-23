@@ -1,3 +1,4 @@
+/** 把评估记录转换成整改任务视图模型。 */
 import { hazardCatalog } from './hazardCatalog'
 import type { ImportedAssessment } from './assessmentImport'
 import type { HazardAssessmentRecord, RiskLevel } from '../shared/api/hazardAssessments'

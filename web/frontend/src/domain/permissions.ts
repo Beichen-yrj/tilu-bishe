@@ -1,3 +1,4 @@
+/** 页面级权限判定：角色可访问页面集合。 */
 export type PlatformPage = '总览' | '风险评估' | '历史评估' | '隐患分析' | '整改闭环' | '历史分析' | '基础资料' | 'AI助手' | '个人中心'
 
 const rolePages: Record<string, readonly PlatformPage[]> = {

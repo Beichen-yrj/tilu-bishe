@@ -1,3 +1,5 @@
+"""意见反馈 DTO：创建、回复、响应结构。"""
+
 from __future__ import annotations
 
 from pydantic import BaseModel, Field

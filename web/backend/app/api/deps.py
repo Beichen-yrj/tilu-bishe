@@ -1,3 +1,5 @@
+"""HTTP 层公共依赖：数据库会话、JWT 会话校验，以及 reader/assessor/rectifier/admin 角色门槛。"""
+
 from __future__ import annotations
 
 from fastapi import Depends, HTTPException, status

@@ -1,3 +1,5 @@
+"""认证相关 DTO：注册/登录/改密/资料更新请求与用户、令牌响应，含账号与角色校验。"""
+
 from __future__ import annotations
 
 import re

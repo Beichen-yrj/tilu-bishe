@@ -1,3 +1,4 @@
+/** 认证 API 客户端：登录、注册、当前用户、资料与改密。 */
 export type AuthUser = {
   id: number
   username: string

@@ -1,3 +1,5 @@
+"""隐患排查评估 DTO：评估载荷与响应，以及整改操作载荷（阶段、操作类型、版本号、复核数据）。"""
+
 from __future__ import annotations
 
 from typing import Literal

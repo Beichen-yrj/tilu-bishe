@@ -1,3 +1,4 @@
+/** 隐患排查评估与整改 API 客户端及共享类型。 */
 import { ApiError } from './auth'
 
 export type RiskLevel = '低' | '一般' | '较大' | '重大'

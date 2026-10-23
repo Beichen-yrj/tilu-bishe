@@ -1,3 +1,4 @@
+/** 导入工作簿中的照片提取与解析。 */
 import { strFromU8, unzipSync } from 'fflate'
 
 type WorkbookPhoto = { file: Blob; name: string }

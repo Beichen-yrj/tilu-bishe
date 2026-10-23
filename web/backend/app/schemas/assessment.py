@@ -1,3 +1,5 @@
+"""通用评估 DTO：入参载荷与响应结构。"""
+
 from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field

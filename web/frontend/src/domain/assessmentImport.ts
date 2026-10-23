@@ -1,3 +1,4 @@
+/** Excel 导入解析：表头映射、行校验与评估记录构建。 */
 import { hazardCatalog, hazardDimensions, hazardStages } from './hazardCatalog'
 import { bureaus } from './railwayScope'
 import type { AssessmentType, RiskLevel } from '../shared/api/hazardAssessments'

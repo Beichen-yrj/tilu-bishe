@@ -1,3 +1,4 @@
+/** 历史评估记录：查询、查看与导出。 */
 import { useMemo } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from 'recharts'
 import { ArrowLeft, CalendarDays, Download, FileClock, Gauge, Shield, ShieldAlert } from 'lucide-react'

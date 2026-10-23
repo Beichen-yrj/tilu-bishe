@@ -1,3 +1,5 @@
+"""通用评估业务：按账号查询、字段映射与保存。"""
+
 from __future__ import annotations
 
 from fastapi import HTTPException

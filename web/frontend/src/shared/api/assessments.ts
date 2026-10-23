@@ -1,3 +1,4 @@
+/** 通用评估 API 客户端。 */
 import { ApiError } from './auth'
 
 export type AssessmentDto = {

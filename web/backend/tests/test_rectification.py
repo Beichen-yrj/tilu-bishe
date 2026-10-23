@@ -1,3 +1,5 @@
+"""整改闭环测试：阶段流转、撤回、退回、版本冲突与复核校验。"""
+
 from __future__ import annotations
 
 import pytest

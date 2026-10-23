@@ -1,3 +1,5 @@
+"""意见反馈实体：Feedback，记录分类、内容、回复与处理人。"""
+
 from __future__ import annotations
 
 from datetime import datetime

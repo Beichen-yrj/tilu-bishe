@@ -1,3 +1,4 @@
+/** 导入去重逻辑：识别重复评估记录。 */
 import type { ImportedAssessment } from './assessmentImport'
 import type { HazardAssessmentRecord } from '../shared/api/hazardAssessments'
 

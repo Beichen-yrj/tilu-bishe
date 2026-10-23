@@ -1,3 +1,4 @@
+/** AI 助手本地知识：快速问题与离线回答。 */
 import type { HazardAssessmentRecord, RiskLevel } from '../shared/api/hazardAssessments'
 
 export type AiIssue = { title: string; risk: RiskLevel; stage: number; overdue: boolean }

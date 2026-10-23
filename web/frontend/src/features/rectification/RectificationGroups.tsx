@@ -1,3 +1,4 @@
+/** 整改任务分组列表：按阶段与责任归集隐患。 */
 import { useMemo, useState } from 'react'
 import { AlertTriangle, ArrowRight, Check, ChevronDown, Clock3 } from 'lucide-react'
 

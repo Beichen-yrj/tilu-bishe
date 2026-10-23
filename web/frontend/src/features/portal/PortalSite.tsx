@@ -1,3 +1,4 @@
+/** 产品门户站点：首页、能力介绍与新闻内容页。 */
 import { useEffect, useState } from 'react'
 import {
   ArrowLeft, ArrowRight, CalendarDays, ChartNoAxesCombined, Check, ChevronDown, ClipboardCheck,

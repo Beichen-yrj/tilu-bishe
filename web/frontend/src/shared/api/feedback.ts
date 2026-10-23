@@ -1,3 +1,4 @@
+/** 意见反馈 API 客户端。 */
 import { ApiError } from './auth'
 
 export type FeedbackItem = {
